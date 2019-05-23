@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+    <head>        
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Play RPS</title>
+        <link rel="shortcut icon" type="image/png" href="images/bookicon.png">
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/hover.css">
+        <!-- JQUERY STUFF -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="main" id="before_send">
+            <!-- Send username to server and save it --> 
+            <input type="text" placeholder="Your name" id="name">
+            <button onclick="sendData()" class="button button1" id="sendButton">Send</button>
+            <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
+        </div>
+
+        <div class="main" id="after_send">
+
+            <!-- Modal here -->
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="outButton" data-toggle="modal" data-target="#myModal"><span class="fa fa-close" id="closeX"></span></button>
+            
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Attention!!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to quit? You will lose!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="outRoom()">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                        </div>
+                    </div>
+                </div> <!-- div myModal -->
+            <div id="before_ready">
+                <!-- readyButton -->
+                <button class="button button1" onclick="ready()">Ready</button>
+                <p id="notifyReady"></p>
+
+            </div>
+            <!-- Game -->
+            <div id="game">
+                <!-- Clock -->
+                <p id="clock">5</p>
+                <h1>Make your choice</h1>
+                <!-- Scoreboard -->
+                <p id="notify_round"></p>
+                <button class="square" id="point_0"></button>
+                <button class="square" id="point_1"></button>
+                <button class="square" id="point_2"></button>
+                <button class="square" id="point_3"></button>
+                <button class="square" id="point_4"></button>
+                <p id="showChoiceContainer">You are choosing: <span id="showChoice"></span></p>
+                <button onclick="selectRock()" class="button button1" id="selectRock">Rock</button>
+                <button onclick="selectPaper()" class="button button1" id="selectPaper">Paper</button>
+                <button onclick="selectScissors()" class="button button1" id="selectScissors">Scissors</button>
+            </div>
+            <!-- A vs B goes here -->
+            <p id="username_vs"></p>
+        </div>
+        <!-- End game -->
+        <div id="end_game" class="endGame">
+            <!-- Win game -->
+            <div id="win_end">
+                <h1>Congratulations !!!</h1>
+                <p>You have won the match</p>
+            </div>
+            <!-- Draw game -->
+            <div id="draw_end">
+                <h1>Well played !!!</h1>
+                <p>No winner in this match :></p>
+            </div>
+            <!-- Lose game -->
+            <div id="lose_end">
+                <h1>Try harder !!!</h1>
+                <p>You have lost the match</p>
+            </div>
+            <!-- Quit game -->
+            <div id="quit_end">
+                    <h1>Congratulations !!!</h1>
+                    <p>Your opponent gave up :></p>
+            </div>
+            <!-- Rematch -->
+            <button class="button button1" id="rematch" onclick="rematch()">Rematch?</button>
+
+            <!-- Back button -->
+            <a href="index.html" class="button button1" id="back" onclick="back()">Back</a>
+        </div>
+        <!-- JS --> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <script src="js/gameRPS.js"></script>
+    </body>
+</html>
