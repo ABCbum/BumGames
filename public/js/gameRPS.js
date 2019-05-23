@@ -1,5 +1,5 @@
 
-var socket = io.connect("localhost:3000");
+var socket = io.connect("https://bumgames.herokuapp.com");
 
 // Hide loader game 
 $('#loader').hide();

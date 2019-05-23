@@ -1,4 +1,4 @@
-const socket = io.connect("localhost:3000");
+const socket = io.connect("https://bumgames.herokuapp.com");
 
 //Emit every 2 seconds for testing
 var getSocketsNum = setInterval(function(){
