@@ -21,7 +21,10 @@
             <!-- Send username to server and save it --> 
             <input type="text" placeholder="Your name" id="name">
             <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
-            <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
+            <div classs="main" id="before_matched">
+                <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
+                <button id="cancel" class="button button1" onclick="cancel()">Cancel</button>
+            </div>
         </div>
 
         <div class="main" id="after_send">

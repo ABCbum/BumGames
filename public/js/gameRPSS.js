@@ -1,8 +1,8 @@
 var socket = io.connect("https://bumgames.herokuapp.com");
 
-// Hide loader game 
-$('#loader').hide();
-$('#loader_text').hide();
+// Hide loader game before_matched 
+// contains loaders and cancel button
+$('#before_matched').hide();
 $('#after_send').hide();
 $('#end_game').hide();
 
@@ -46,10 +46,15 @@ function sendData()
     $('#sendButton').hide();
     $('#name').hide();
     // Show
-    $('#loader').show();
-    $('#loader_text').show();
+    $('#before_matched').show();
 };
-
+// Cancel finding match
+function cancel()
+{
+    // Send event
+    socket.emit('cancel_finding_RPSS');
+    location.reload();
+}
 // Send choice part
 var choice = "Rock";
 var changeable = 1;
@@ -126,8 +131,7 @@ socket.on('connect', function(){
         console.log("Matching btw ", player1, "and", player2, "is done!");
 
         // Hide loaders
-        $('#loader').hide();
-        $('#loader_text').hide();
+        $('#before_matched').hide();
 
         // Check if ready then show the game
         $('#after_send').show();        

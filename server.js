@@ -99,6 +99,18 @@ io.on('connection', function(socket) {
 
     });
 
+    // If cancel_finding_RPS
+    socket.on('cancel_finding_RPS', () => {
+        console.log('Canceling, delete from loneUser');
+        loneUser = {};
+    });
+
+    // If cancel_finding_RPSS
+    socket.on('cancel_finding_RPSS', () => {
+        console.log('Canceling, delete from loneUser');
+        RPSSloneUser = {};
+    });
+    
     // Receive username from client input and match a RPSS game
     socket.on('sendUsernameRPSS', (data) => {
         console.log("Username is",data, "from socket",socket.id);
