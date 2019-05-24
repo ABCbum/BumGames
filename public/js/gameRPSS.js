@@ -1,4 +1,3 @@
-
 var socket = io.connect("https://bumgames.herokuapp.com");
 
 // Hide loader game 
@@ -13,19 +12,24 @@ var tran_thua = 0;
 var tran_thang = 0;
 var tran_hoa = 0;
 
-// Countdown
+// Countdown change the clock a little bit : add an additional
+// second to make ensure changes in last seconds
 function run_clock(time) 
 {
     var timeleft = time;
     console.log('Round',round,'Thang',tran_thang,'Thua',tran_thua,'Hoa',tran_hoa);
     function update_clock()
     {
-        document.getElementById("clock").innerHTML = timeleft;
+        if (timeleft == -1) document.getElementById("clock").innerHTML = 0;
+        else document.getElementById("clock").innerHTML = timeleft;
         timeleft -= 1;
         if(timeleft < 0){
-          clearInterval(downloadTimer);
-          socket.emit('select', round, choice, socket.id);
-          socket.emit('checkResult', round);
+          if(timeleft == -2)
+          {
+            clearInterval(downloadTimer);
+            socket.emit('select', round, choice, socket.id);
+            socket.emit('checkResult', round);
+          }
         }
       }
     var downloadTimer = setInterval(update_clock, 1000);    
@@ -37,7 +41,7 @@ function sendData()
     let username = $("#name").val();
     console.log("let username = ",username);
     console.log(socket.id);
-    socket.emit('sendUsername', username);
+    socket.emit('sendUsernameRPSS', username);
     // Hide
     $('#sendButton').hide();
     $('#name').hide();
@@ -50,7 +54,7 @@ function sendData()
 var choice = "Rock";
 var changeable = 1;
 
-// Function to send "selectRock" event to server
+// Function to change choice and giveEnemyHint event to server
 function selectRock() 
 {
     console.log('Choosing Rock');
@@ -59,9 +63,10 @@ function selectRock()
     if(changeable) {
         $('#showChoice').html(choice);
     }
+    socket.emit('giveEnemyHint', choice);
 }
 
-// Function to send "selectPaper" event to server
+// Function to change choice and giveEnemyHint event to server
 function selectPaper() 
 {
     console.log('Choosing Paper');
@@ -69,9 +74,10 @@ function selectPaper()
     if(changeable) {
         $('#showChoice').html(choice);
     }
+    socket.emit('giveEnemyHint', choice);
 }
 
-// Function to send "selectScissors" event to server
+// Function to change choice and giveEnemyHint event to server
 function selectScissors() 
 {
     console.log('Choosing Scissors');
@@ -79,6 +85,7 @@ function selectScissors()
     if(changeable) {
         $('#showChoice').html(choice);
     }
+    socket.emit('giveEnemyHint', choice);
 }
 
 // Function when confirm to outButton
@@ -141,6 +148,12 @@ socket.on('connect', function(){
     socket.on('not ready', () => {
         console.log("Not yet!!");
         $('#notifyReady').html("Opponent is not ready...");
+    });
+
+    // showEChoice - to receive enemy's choice data here is E's Choice
+    socket.on('showEChoice', (data) => {
+        console.log("E's choice is",data);
+        $('#showEChoice').html(data);
     });
 
     // Receive "select" event sent from server

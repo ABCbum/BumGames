@@ -17,6 +17,7 @@ function notify()
 
 // Objects store user data
 var loneUser ={};
+var RPSSloneUser = {};
 var allUser ={};
 
 function reset_loneUser() {
@@ -98,7 +99,59 @@ io.on('connection', function(socket) {
 
     });
 
+    // Receive username from client input and match a RPSS game
+    socket.on('sendUsernameRPSS', (data) => {
+        console.log("Username is",data, "from socket",socket.id);
+
+        // Save this username in allUser by socket.id
+        allUser[socket.id].username = data;
+
+        // If no one is alone then be alone
+        if(!RPSSloneUser.id) 
+        {
+            console.log("No one is alone so make",data, "a RPSSloneUser");
+            
+            // Update loneUser 
+            RPSSloneUser.username = data;
+            RPSSloneUser.id = socket.id;
+            console.log("RPSSloneUser is", RPSSloneUser);
+            console.log("Number of sockets connected",Object.keys(allUser).length + '\n');
+        }
+
+        // If someone is alone then match
+        else 
+        {
+            console.log("Someone is here i'll match ",data,"with",RPSSloneUser.username);
+
+            // Update partner in allUser and  
+            allUser[socket.id].partner = allUser[RPSSloneUser.id];
+            allUser[RPSSloneUser.id].partner = allUser[socket.id];
+
+            // Initialize array choice inside object
+            allUser[socket.id].choice = [];
+            allUser[socket.id].partner.choice = [];
+
+            // Join in one room 
+            socket.join(RPSSloneUser.id, () => { 
+                console.log("Changing room");
+                console.log(socket.id, "now in room",allUser[socket.id].rooms);
+
+            });
+            allUser[RPSSloneUser.id].join(socket.id, () => {
+                console.log("RPSSloneUser joining");
+                console.log("RPSSloneUser now in room",allUser[RPSSloneUser.id].rooms);
+                // Both matching process is done 
+                io.in(socket.id).emit('matching_done',RPSSloneUser.username,allUser[socket.id].username);
+                console.log('Reset RPSSloneUser');
+                RPSSloneUser = {};
+            })
+            console.log("Number of sockets connected",Object.keys(allUser).length + '\n');
+        } 
+
+    });
+
     // Check if both player is ready RPS id is socket.id
+    // It can be used for both RPS and RPSS
     socket.on('readyRPS', (id) => {
         console.log('Player',allUser[id].username,'is ready');
         allUser[id].readyRPS = 1;
@@ -109,6 +162,12 @@ io.on('connection', function(socket) {
             io.to(id).emit('both ready');
         }
         else socket.emit('not ready');
+    });
+
+    // In RPSS game, inform partner about socket's choice
+    socket.on('giveEnemyHint', (choice) => {
+        console.log('Giving my choice');
+        socket.broadcast.to(socket.id).emit('showEChoice', choice);
     });
 
     // Handle event from clients player here is socket.id
