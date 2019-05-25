@@ -2,8 +2,11 @@ body {
     margin : 0;
     font-family: 'Nunito', sans-serif;
 }
+container {
+    
+}
 .main {
-    width: 50%;
+    width: 60%;
     text-align: center;
     margin: 0 auto;
     margin-top : 100px;
@@ -105,7 +108,50 @@ input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
 }
-  
+
+/* 
+===================== Emochat ===========================
+*/  
+.emochat {
+    width: 15%;
+    display: inline;
+    text-align: right;
+}
+
+.emochat_choice img{
+    width: 45px;
+    height: 45px;
+    text-align: right;
+}
+
+/* 
+===================== Where the chat goes ===========================
+*/  
+.opponent_send {
+    width: 20%;
+    float: left;
+    top: 50%;
+    left: 5px;
+}
+#opponent_gif {
+    display:block;
+    margin:auto;
+    height: 100%; 
+    width: 100%;
+}
+
+.you_send {
+    width: 20%;
+    float: right;
+    top: 50%;
+    right: 5px;
+}
+#you_gif {
+    display:block;
+    margin:auto;
+    height: 100%; 
+    width: 100%;
+}
 /* 
 ===================== Endgame ===========================
 */

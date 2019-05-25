@@ -17,7 +17,29 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
+    <div class="container">
+        <!-- emochat -->
+        <div class="opponent_send" id="opponent_send">
+                <h3>Enemy: </h3>
+            <img id="opponent_gif" src="hello.gif">
+
+        </div>
+        <div class="you_send" id="you_send">
+            <h3>YOU: </h3>
+            <img id="you_gif" src="hello.gif">
+            <!-- emochat -->
+            <div class="emochat" id="emochat">
+                <!-- List of emoji --> 
+                <div id="emochat_choice">   
+                    <button class="emochat_choice" onclick="emochat_why()"><img src="why.gif"></button>                     
+                    <button class="emochat_choice" onclick="emochat_scared()"><img src="scared.gif"></button>                     
+                    <button class="emochat_choice" onclick="emochat_what()"><img src="what.gif"></button>                     
+                    <button class="emochat_choice" onclick="emochat_happy()"><img src="happy.gif"></button>   
+                </div>                  
+            </div>
+        </div>
         <div class="main" id="before_send">
+            <h2 id="header">Play RPSS</h2>
             <!-- Send username to server and save it --> 
             <input type="text" placeholder="Your name" id="name">
             <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
@@ -59,6 +81,8 @@
                 <p id="notifyReady"></p>
 
             </div>
+            <!-- A vs B goes here -->
+            <h3 id="username_vs"></h3>
             <!-- Game -->
             <div id="game">
                 <!-- Clock -->
@@ -77,8 +101,6 @@
                 <button onclick="selectPaper()" class="button button1" id="selectPaper">Paper</button>
                 <button onclick="selectScissors()" class="button button1" id="selectScissors">Scissors</button>
             </div>
-            <!-- A vs B goes here -->
-            <p id="username_vs"></p>
         </div>
         <!-- End game -->
         <div id="end_game" class="endGame">
@@ -108,8 +130,10 @@
             <!-- Back button -->
             <a href="index.html" class="button button1" id="back" onclick="back()">Back</a>
         </div>
+    </div>
         <!-- JS --> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>-->
+        <script src="/socket.io/socket.io.js"></script>
         <script src="js/gameRPSS.js"></script>
     </body>
 </html>

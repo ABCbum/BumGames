@@ -17,7 +17,30 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
+    <div class="container">
+        <!-- emochat -->
+        <div class="opponent_send" id="opponent_send">
+                <h3>Enemy: </h3>
+            <img id="opponent_gif" src="hello.gif">
+    
+        </div>
+        <div class="you_send" id="you_send">
+            <h3>YOU: </h3>
+            <img id="you_gif" src="hello.gif">
+            <!-- emochat -->
+            <div class="emochat" id="emochat">
+                <!-- List of emoji --> 
+                <div id="emochat_choice">   
+                    <button class="emochat_choice" onclick="emochat_why()"><img src="why.gif"></button>                     
+                    <button class="emochat_choice" onclick="emochat_scared()"><img src="scared.gif"></button>                     
+                    <button class="emochat_choice" onclick="emochat_what()"><img src="what.gif"></button>                     
+                    <button class="emochat_choice" onclick="emochat_happy()"><img src="happy.gif"></button>   
+                </div>                  
+            </div>
+        </div>
+        <!-- Main -->
         <div class="main" id="before_send">
+            <h2 id="header">Play RPS</h2>
             <!-- Send username to server and save it --> 
             <input type="text" placeholder="Your name" id="name">
             <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
@@ -26,7 +49,6 @@
                 <button id="cancel" class="button button1" onclick="cancel()">Cancel</button>
             </div>
         </div>
-
         <div class="main" id="after_send">
 
             <!-- Modal here -->
@@ -59,8 +81,10 @@
                 <p id="notifyReady"></p>
 
             </div>
+            <!-- A vs B goes here -->
+            <h3 id="username_vs"></h3>
             <!-- Game -->
-            <div id="game">
+            <div id="game">>
                 <!-- Clock -->
                 <p id="clock">5</p>
                 <h1>Make your choice</h1>
@@ -75,9 +99,8 @@
                 <button onclick="selectRock()" class="button button1" id="selectRock">Rock</button>
                 <button onclick="selectPaper()" class="button button1" id="selectPaper">Paper</button>
                 <button onclick="selectScissors()" class="button button1" id="selectScissors">Scissors</button>
+                <br><br>
             </div>
-            <!-- A vs B goes here -->
-            <p id="username_vs"></p>
         </div>
         <!-- End game -->
         <div id="end_game" class="endGame">
@@ -107,8 +130,11 @@
             <!-- Back button -->
             <a href="index.html" class="button button1" id="back" onclick="back()">Back</a>
         </div>
+    </div> <!-- container -->
+
         <!-- JS --> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>-->
+        <script src="/socket.io/socket.io.js"></script>
         <script src="js/gameRPS.js"></script>
     </body>
 </html>

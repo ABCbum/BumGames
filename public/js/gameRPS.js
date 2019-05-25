@@ -1,10 +1,12 @@
 
-var socket = io.connect("https://bumgames.herokuapp.com");
+var socket = io.connect('https://bumgames.herokuapp.com');
 
 // Hide loader game before_matched 
-// contains loaders and cancel button
+// contains loaders and cancel button and emochat
 $('#before_matched').hide();
 $('#after_send').hide();
+$("#opponent_send").hide();
+$("#you_send").hide();
 $('#end_game').hide();
 
 // Count rounds
@@ -41,6 +43,7 @@ function sendData()
     // Hide
     $('#sendButton').hide();
     $('#name').hide();
+    $('#header').hide();
     // Show before_matched
     $('#before_matched').show();
 };
@@ -86,6 +89,32 @@ function selectScissors()
     if(changeable) {
         $('#showChoice').html(choice);
     }
+}
+
+// Send emochat gifs why, what, scared, happy
+function emochat_why()
+{
+    console.log('Sending why');
+    socket.emit('emochat_why');
+    $('#you_gif').attr('src' , 'why.gif');
+}
+function emochat_what()
+{
+    console.log('Sending what');
+    socket.emit('emochat_what');
+    $('#you_gif').attr('src' , 'what.gif');
+}
+function emochat_scared()
+{
+    console.log('Sending scared');
+    socket.emit('emochat_scared');
+    $('#you_gif').attr('src' , 'scared.gif');
+}
+function emochat_happy()
+{
+    console.log('Sending happy');
+    socket.emit('emochat_happy');
+    $('#you_gif').attr('src' , 'happy.gif');
 }
 
 // Function when confirm to outButton
@@ -139,6 +168,8 @@ socket.on('connect', function(){
         console.log("Let's go");
         // Show the game hide ready button
         $('#game').show();
+        $('#you_send').show();
+        $('#opponent_send').show();
         run_clock(5);
         $('#before_ready').hide();
     });
@@ -146,6 +177,19 @@ socket.on('connect', function(){
     socket.on('not ready', () => {
         console.log("Not yet!!");
         $('#notifyReady').html("Opponent is not ready...");
+    });
+    // emochat
+    socket.on('emochat_what', () => {
+        $('#opponent_gif').attr('src' , 'what.gif');
+    });
+    socket.on('emochat_why', () => {
+        $('#opponent_gif').attr('src' , 'why.gif');
+    });
+    socket.on('emochat_happy', () => {
+        $('#opponent_gif').attr('src' , 'happy.gif');
+    });
+    socket.on('emochat_scared', () => {
+        $('#opponent_gif').attr('src' , 'scared.gif');
     });
 
     // Receive "select" event sent from server
@@ -338,7 +382,13 @@ socket.on('connect', function(){
     // Receive event when "breakMatch" from server
     socket.on('breakMatch', () => {
         console.log('This match is broken');
-        
+        // Show the you win + play again board
+        $('#after_send').hide();
+        $('#end_game').show();
+        $('#rematch').hide();
+        $('#draw_end').hide();
+        $('#lose_end').hide();
+        $('#win_end').hide();        
     });
 
     // Receive event when beOuted

@@ -182,6 +182,24 @@ io.on('connection', function(socket) {
         socket.broadcast.to(socket.id).emit('showEChoice', choice);
     });
 
+    // emochat
+    socket.on('emochat_why', () => {
+        console.log('Received emochat');
+        socket.broadcast.to(socket.id).emit('emochat_why');
+    });
+    socket.on('emochat_what', () => {
+        console.log('Received emochat');
+        socket.broadcast.to(socket.id).emit('emochat_what');
+    });
+    socket.on('emochat_happy', () => {
+        console.log('Received emochat');
+        socket.broadcast.to(socket.id).emit('emochat_happy');
+    });
+    socket.on('emochat_scared', () => {
+        console.log('Received emochat');
+        socket.broadcast.to(socket.id).emit('emochat_scared');
+    });
+
     // Handle event from clients player here is socket.id
     socket.on('select',(round, choice, player) => {
         // Send to all clients in room including sender
