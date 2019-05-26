@@ -403,5 +403,6 @@ socket.on('connect', function(){
         $('#draw_end').hide();
         $('#lose_end').hide();
         $('#win_end').hide();
+        $('#quit_end').show();
     });
 });
