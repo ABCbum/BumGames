@@ -322,6 +322,10 @@ io.on('connection', function(socket) {
             // Initialize board inside object
             allUser[socket.id].board = new Array(9);
             allUser[socket.id].partner.board = new Array(9);
+            for (let i = 0; i < 9 ; i++)
+            {
+                check[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+            }
 
 
             // Join in one room 
