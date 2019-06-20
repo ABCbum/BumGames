@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+    <head>        
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Play XO</title>
+        <link rel="shortcut icon" type="image/png" href="">
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/hover.css">
+        <!-- JQUERY STUFF -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <!-- Before sending username -->
+        <div class="main" id="before_send">
+            <h2 id="header">Play XO</h2>
+            <!-- Send username to server and save it --> 
+            <input type="text" placeholder="Your name" id="name">
+            <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
+            <div classs="main" id="before_matched">
+                <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
+                <button id="cancel" class="button button1" onclick="cancel()">Cancel</button>
+            </div>
+        </div>
+
+        <div class="main" id="after_send">
+                
+            <!-- Modal here -->
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="outButton" data-toggle="modal" data-target="#myModal"><span class="fa fa-close" id="closeX"></span></button>
+            
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Attention!!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to quit? You will lose!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="outRoom()">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                        </div>
+                    </div>
+                </div> <!-- div myModal -->
+            <div id="before_ready">
+                <!-- readyButton -->
+                <button class="button button1" onclick="ready()">Ready</button>
+                <p id="notifyReady"></p>
+
+            </div>
+        </div>
+
+        <!-- Board is here -->
+        <div class="board"></div>
+
+
+        <div id="end_game">
+            <!-- Rematch -->
+            <button class="button button1" id="rematch" onclick="rematch()">Rematch?</button>
+        </div>
+
+        <!-- Script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <script src="js/XO.js"></script>
+        <script src="js/generateBoard.js"></script>
+    </body>
+</html>

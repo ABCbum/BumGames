@@ -3,21 +3,22 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000, notify());
 // Serve static files
 app.use("/", express.static('public'))
 
 // Notify the listeing port
 function notify()
 {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("Host is ",host, "Listening on port ",port);
+    //var host = server.address().address;
+    //var port = server.address().port;
+    console.log("Listening on port 3000");
 }
 
 // Objects store user data
 var loneUser ={};
 var RPSSloneUser = {};
+var XOloneUser ={};
 var allUser ={};
 
 function reset_loneUser() {
@@ -66,7 +67,7 @@ io.on('connection', function(socket) {
             loneUser.id = socket.id;
             console.log("loneUser is", loneUser);
             console.log("Number of sockets connected",Object.keys(allUser).length + '\n');
-        }
+        }   
 
         // If someone is alone then match
         else 
@@ -166,9 +167,9 @@ io.on('connection', function(socket) {
     // It can be used for both RPS and RPSS
     socket.on('readyRPS', (id) => {
         console.log('Player',allUser[id].username,'is ready');
-        allUser[id].readyRPS = 1;
+        allUser[id].ready = 1;
         // If the other is ready
-        if(allUser[id].partner.readyRPS) 
+        if(allUser[id].partner.ready) 
         {
             console.log('The other is ready');
             io.to(id).emit('both ready');
@@ -268,6 +269,7 @@ io.on('connection', function(socket) {
             allUser[socket.id].partner.emit('want_rematch',);
         }
     });
+    
     // Handle event outRoom
     socket.on('outRoom', () =>{
         // Notify the other user
@@ -284,4 +286,77 @@ io.on('connection', function(socket) {
         });
     });
 
-});     
+
+    /*
+     *   ============= Handle XO game ===============
+     */
+
+    // Receive username from client input and match a RPSS game
+    socket.on('sendUsernameXO', (data) => {
+        console.log("Username is",data, "from socket",socket.id);
+
+        // Save this username in allUser by socket.id
+        allUser[socket.id].username = data;
+
+        // If no one is alone then be alone
+        if(!XOloneUser.id) 
+        {
+            console.log("No one is alone so make",data, "a XOloneUser");
+            
+            // Update loneUser 
+            XOloneUser.username = data;
+            XOloneUser.id = socket.id;
+            console.log("XOloneUser is", XOloneUser);
+            console.log("Number of sockets connected",Object.keys(allUser).length + '\n');
+        }
+
+        // If someone is alone then match
+        else 
+        {
+            console.log("Someone is here i'll match ",data,"with",XOloneUser.username);
+
+            // Update partner in allUser and  
+            allUser[socket.id].partner = allUser[XOloneUser.id];
+            allUser[XOloneUser.id].partner = allUser[socket.id];
+
+            // Initialize board inside object
+            allUser[socket.id].board = new Array(9);
+            allUser[socket.id].partner.board = new Array(9);
+
+
+            // Join in one room 
+            socket.join(XOloneUser.id, () => { 
+                console.log("Changing room");
+                console.log(socket.id, "now in room",allUser[socket.id].rooms);
+            });
+            allUser[XOloneUser.id].join(socket.id, () => {
+                console.log("XOloneUser joining");
+                console.log("XOloneUser now in room",allUser[XOloneUser.id].rooms);
+                // Both matching process is done 
+                io.in(socket.id).emit('matching_done',XOloneUser.username,allUser[socket.id].username);
+
+                // Decide X and O
+                socket.emit('decide_player', 'X')
+                socket.to(socket.id).emit('decide_player', 'O')
+
+                // Reset
+                console.log('Reset XOloneUser');
+                XOloneUser = {};
+            })
+
+            console.log("Number of sockets connected",Object.keys(allUser).length + '\n');
+        } 
+
+    });
+
+    // If cancel_finding_XO
+    socket.on('cancel_finding_XO', () => {
+        console.log('Canceling, delete from XOloneUser');
+        XOloneUser = {};
+    });
+
+    socket.on('XOChoice', (y, x, player) => {
+        console.log('Received XOChoice', y, x, player)
+        socket.to(socket.id).emit('changeTurn', y, x ,player)
+    })
+});

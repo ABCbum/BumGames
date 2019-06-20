@@ -158,3 +158,24 @@ input[type=text], select {
 .endGame {
     text-align: center;
 }
+
+
+
+/* 
+===================== XO board ============================
+*/
+.board {
+    width: 51.5vw;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.square {
+    min-height: 5.5vw;
+    width: 5.5vw;
+    background-color: white;
+    border: 0.1vw solid black;
+}
