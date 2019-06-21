@@ -14,16 +14,22 @@ module.exports = exports = (board, y, x) => {
     let count = 0
 
     // Horizontal
-    while((board[y][x] == board[y][x-1]) && x >= 0)
+    if(x != 0)
     {
-        count++ 
-        x--
+        while((board[y][x] == board[y][x-1]) && x >= 0)
+        {
+            count++ 
+            x--
+        }
     }
     x = xRoot
-    while((board[y][x] == board[y][x-1]) && x < 9)
+    if(x != 0)
     {
-        count++ 
-        x++
+        while((board[y][x] == board[y][x-1]) && x < 9)
+        {
+            count++ 
+            x++
+        }
     }
     if (count >= 5) return 1
     else {
@@ -35,10 +41,13 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // Vertical
-    while((board[y][x] == board[y-1][x]) && y >= 0)
+    if (y != 0)
     {
-        count++ 
-        y--
+        while((board[y][x] == board[y-1][x]) && y >= 0)
+        {
+            count++ 
+            y--
+        }
     }
     y = yRoot
     while((board[y][x] == board[y+1][x]) && y < 9)
@@ -57,11 +66,14 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // Main Diagonal
-    while((board[y][x] == board[y-1][x-1]) && y >= 0 && x >= 0)
+    if(y != 0 && x != 0)
     {
-        count++ 
-        y--
-        x--
+        while((board[y][x] == board[y-1][x-1]) && y >= 0 && x >= 0)
+        {
+            count++ 
+            y--
+            x--
+        }
     }
     y = yRoot
     x = xRoot
@@ -81,28 +93,31 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // The other diagonal
-    while((board[y][x] == board[y-1][x+1]) && y >= 0 && x < 9)
+    if(y != 0)
     {
-        count++ 
-        y--
-        x++
+        while((board[y][x] == board[y-1][x+1]) && y >= 0 && x < 9)
+        {
+            count++ 
+            y--
+            x++
+        }
     }
     y = yRoot
     x = xRoot
-    while((board[y][x] == board[y+1][x-1]) && y < 9 && x >= 0)
+    if(x != 0)
     {
-        count++ 
-        y--
-        x++
+        while((board[y][x] == board[y+1][x-1]) && y < 9 && x >= 0)
+        {
+            count++ 
+            y--
+            x++
+        }
     }
     if (count >= 5) return 1
     else {
         count = 0
         console.log('Not diagonal')
     }
-
-    y = yRoot
-    x = xRoot
 
     console.log('No win')
     return 0
