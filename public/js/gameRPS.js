@@ -1,5 +1,5 @@
 
-var socket = io.connect('');
+var socket = io.connect('https://bumgames.herokuapp.com');
 
 // Hide loader game before_matched 
 // contains loaders and cancel button and emochat
