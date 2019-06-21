@@ -3,7 +3,7 @@
 const socket = io.connect('https://bumgames.herokuapp.com')
 
 // Setup 
-// $('.board').hide()
+$('.board').hide()
 $('#after_finding').hide()
 $('#after_matched').hide()
 $('#end_game').hide()
