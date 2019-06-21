@@ -3,7 +3,7 @@
 const socket = io.connect('https://bumgames.herokuapp.com')
 
 // Setup 
-$('#game').hide()
+$('.board').hide()
 $('#after_finding').hide()
 $('#after_matched').hide()
 $('#end_game').hide()
@@ -123,7 +123,7 @@ socket.on('connect', () => {
         }
         else {
             yourTurn = 0
-            $('#whose_turn').html('Their turn')
+            $('#whose_turn').html('Your turn')
         }
     })
 
@@ -151,22 +151,19 @@ socket.on('connect', () => {
         console.log('Match ended, winner is', winner)
         // If i win
         if(winner === player) {
-            $('#game').hide()
-            $('#end_game').show()
-            $('#end_message').html('You win!!!')
+            $('end_game').show()
+            $('end_message').html('You win!!!')
         }
         else {
-            $('#game').hide()
-            $('#end_game').show()
-            $('#end_message').html('You win!!!')
+            $('end_game').show()
+            $('end_message').html('You lose!!!')
         }
      })
 
      // No one wins
      socket.on('draw', () => {
-        $('#game').hide()
-        $('#end_game').show()
-        $('#end_message').html('You win!!!')
+        $('end_game').show()
+        $('end_message').html('Draw??')
      })
 
     /*
@@ -202,17 +199,11 @@ socket.on('connect', () => {
     // When enemy outRoom
     socket.on('beOuted', () => {
         console.log('Im beOuted')
-        $('#game').hide()
-        $('#end_game').show()
-        $('#end_message').html('Opponent gives up!!!')
     })
 
     // When other disconnect
     socket.on('breakMatch', () => {
         console.log('Other has disconnected')
-        $('#game').hide()
-        $('#end_game').show()
-        $('#end_message').html('Opponent has disconnected!!!')
     })
 })
 
