@@ -185,6 +185,14 @@ socket.on('connect', () => {
             $('#end_game').hide()
 
             // Start game 
+            for (var y = 0; y < 9; y++)
+            {
+                for(var x = 0; x < 9; x++)
+                {
+                    $(`#square${y}${x}`).html('')
+                }
+            }
+            
             $('#game').show();
 
             // Change rematch html back
