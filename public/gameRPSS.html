@@ -43,6 +43,12 @@
             <!-- Send username to server and save it --> 
             <input type="text" placeholder="Your name" id="name">
             <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
+
+            <!-- Back button -->
+            <button type="button" id="back_button" class="backButton" onclick="window.location.href='index.html'">
+                    <span class="fa fa-arrow-left" id="closeX"></span>
+            </button>              
+
             <div classs="main" id="before_matched">
                 <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
                 <button id="cancel" class="button button1" onclick="cancel()">Cancel</button>

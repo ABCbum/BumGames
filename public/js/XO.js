@@ -4,8 +4,8 @@ const socket = io.connect('http://localhost:3000')
 
 // Setup 
 $('.board').hide()
-$('#before_matched').hide()
-$('#after_send').hide()
+$('#after_finding').hide()
+$('#after_matched').hide()
 $('#end_game').hide()
 let player, yourTurn
 
@@ -25,12 +25,10 @@ function sendData()
     socket.emit('sendUsernameXO', username);
     
     // Hide
-    $('#sendButton').hide();
-    $('#name').hide();
-    $('#header').hide();
+    $('#before_finding').hide()
 
     // Show before_matched (loaders)
-    $('#before_matched').show();
+    $('#after_finding').show();
 };
 
 // Cancel finding match
@@ -46,6 +44,15 @@ function ready()
 {
     console.log("I'm ready");
     socket.emit('readyRPS', socket.id);
+}
+
+// Function when confirm to outButton
+function outRoom()
+{
+    console.log('In function outButton');
+    socket.emit('outRoom');
+    console.log("Redirecting...");
+    window.location.href = "index.html";
 }
 
 /*
@@ -79,9 +86,9 @@ socket.on('connect', () => {
         console.log("Matching btw ", player1, "and", player2, "is done!");
 
         // Hide loaders
-        $('#before_matched').hide();
+        $('#after_finding').hide();
         // Check if ready then show the game
-        $('#after_send').show();
+        $('#after_matched').show();
         // $('#username_vs').html(player1 + " vs " + player2);
 
     });
@@ -119,16 +126,23 @@ socket.on('connect', () => {
      * ================= Game ===============
      */
 
-     socket.on('changeTurn', (y, x, plyer) => {
-         console.log('Received', y, x, plyer)
-         // Disable that move
-         check[y][x] = 0
-         // Show enemy choice
-         $(`#square${y}${x}`).html(plyer)
+     socket.on('showChoice',(y, x, plyer) => {
+        console.log('Received', y, x, plyer)
+        // Disable that move
+        check[y][x] = 0
+        // Show enemy choice
+        $(`#square${y}${x}`).html(plyer)
+     })
+
+     socket.on('changeTurn', () => {
          // Change turn
          yourTurn = 1
      })
 
+     // Someone wins
+     socket.on('has_winner', (winner) => {
+        console.log('Match ended, winner is', winner)
+     })
 
     /*
      * =============== Rematches ===============
@@ -165,5 +179,15 @@ socket.on('connect', () => {
         console.log('Other wants rematch');
         $('#rematch').html('Opponent wants rematch!!');
     });
+
+    // When enemy outRoom
+    socket.on('beOuted', () => {
+        console.log('Im beOuted')
+    })
+
+    // When other disconnect
+    socket.on('breakMatch', () => {
+        console.log('Other has disconnected')
+    })
 })
 

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-
+const checkwin = require('./sub_server/XO.js')
 server.listen(process.env.PORT || 3000, notify());
 // Serve static files
 app.use("/", express.static('public'))
@@ -44,8 +44,15 @@ io.on('connection', function(socket) {
         // If is being matched then out match
         if(allUser[socket.id].partner) {
             console.log('This socket is matched breaking match');
-            io.in(socket.id).emit('breakMatch',);
+            io.in(socket.id).emit('breakMatch');
         }
+
+        // Handle which game user is finding in
+        if(loneUser.id === socket.id) loneUser = {}
+        if(RPSSloneUser.id === socket.id) RPSSloneUser = {}
+        if(XOloneUser.id === socket.id) XOloneUser = {}
+
+        // Delete in from allUser list
         delete allUser[socket.id];
         console.log(socket.id, "Is deleted");       
     });
@@ -324,10 +331,10 @@ io.on('connection', function(socket) {
             allUser[socket.id].partner.board = new Array(9);
             for (let i = 0; i < 9 ; i++)
             {
-                check[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
             }
-
-
+            console.log(allUser[socket.id].partner.board)
             // Join in one room 
             socket.join(XOloneUser.id, () => { 
                 console.log("Changing room");
@@ -359,8 +366,25 @@ io.on('connection', function(socket) {
         XOloneUser = {};
     });
 
+    // Receive choice
     socket.on('XOChoice', (y, x, player) => {
         console.log('Received XOChoice', y, x, player)
-        socket.to(socket.id).emit('changeTurn', y, x ,player)
+
+        // Change the board
+        allUser[socket.id].board[y][x] = player
+        allUser[socket.id].partner.board[y][x] = player
+        console.log(allUser[socket.id].partner.board)
+
+        // Show choice to both players
+        io.to(socket.id).emit('showChoice', y, x, player)
+
+        // Check if someone wins, checkwin() returns 'X' || 'O' || 0
+        let winner = checkwin(allUser[socket.id].partner.board, y, x)
+        winner ? 
+            // Announce winner
+            io.to(socket.id).emit('has_winner', winner)
+            // Else changeTurn
+            : socket.to(socket.id).emit('changeTurn') 
+
     })
 });

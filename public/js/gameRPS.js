@@ -43,6 +43,7 @@ function sendData()
     // Hide
     $('#sendButton').hide();
     $('#name').hide();
+    $('#back_button').hide();
     $('#header').hide();
     // Show before_matched
     $('#before_matched').show();

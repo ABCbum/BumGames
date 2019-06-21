@@ -18,19 +18,25 @@
     </head>
     <body>
         <!-- Before sending username -->
-        <div class="main" id="before_send">
-            <h2 id="header">Play XO</h2>
+        <div class="main" id="landing">
             <!-- Send username to server and save it --> 
-            <input type="text" placeholder="Your name" id="name">
-            <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
-            <div classs="main" id="before_matched">
+            <section id="before_finding">
+                <h2 id="header">Play XO</h2>
+                <input type="text" placeholder="Your name" id="name">
+                <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
+                <button type="button" class="backButton" onclick="window.location.href='index.html'">
+                        <span class="fa fa-arrow-left" id="closeX"></span>
+                </button>              
+            </section>
+            <div class="main" id="after_finding">
                 <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
                 <button id="cancel" class="button button1" onclick="cancel()">Cancel</button>
             </div>
         </div>
+        
+        <!-- After sending username -->
+        <div class="main" id="after_matched">
 
-        <div class="main" id="after_send">
-                
             <!-- Modal here -->
             <!-- Trigger the modal with a button -->
             <button type="button" class="outButton" data-toggle="modal" data-target="#myModal"><span class="fa fa-close" id="closeX"></span></button>
