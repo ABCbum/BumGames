@@ -202,8 +202,32 @@ input[type=text], select {
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     margin: auto;
+    float: center;
 }
 
+.left_board {
+    width: 24.5vw;
+    height: 100vw;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: auto;
+    float: left;
+    background-color: black
+}
+
+.right_board {
+    width: 24.5vw;
+    height: 100vw;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: auto;
+    float: right;
+    background-color: pink
+}
 .square {
     min-height: 5.5vw;
     width: 5.5vw;

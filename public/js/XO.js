@@ -3,7 +3,7 @@
 const socket = io.connect('http://localhost:3000')
 
 // Setup 
-$('.board').hide()
+// $('.board').hide()
 $('#after_finding').hide()
 $('#after_matched').hide()
 $('#end_game').hide()
@@ -89,8 +89,8 @@ socket.on('connect', () => {
         $('#after_finding').hide();
         // Check if ready then show the game
         $('#after_matched').show();
-        // $('#username_vs').html(player1 + " vs " + player2);
-
+        $('#username_vs').html(player1 + " vs " + player2);
+        $('#username_vs2').html(player1 + " vs " + player2);
     });
 
     // Receive event 'both ready' and 'not ready'
@@ -137,6 +137,7 @@ socket.on('connect', () => {
      socket.on('changeTurn', () => {
          // Change turn
          yourTurn = 1
+         console.log('Its your turn')
      })
 
      // Someone wins

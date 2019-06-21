@@ -373,16 +373,16 @@ io.on('connection', function(socket) {
         // Change the board
         allUser[socket.id].board[y][x] = player
         allUser[socket.id].partner.board[y][x] = player
-        console.log(allUser[socket.id].partner.board)
 
         // Show choice to both players
         io.to(socket.id).emit('showChoice', y, x, player)
 
         // Check if someone wins, checkwin() returns 'X' || 'O' || 0
         let winner = checkwin(allUser[socket.id].partner.board, y, x)
+        console.log('winner = ', winner)
         winner ? 
             // Announce winner
-            io.to(socket.id).emit('has_winner', winner)
+            io.to(socket.id).emit('has_winner', player)
             // Else changeTurn
             : socket.to(socket.id).emit('changeTurn') 
 

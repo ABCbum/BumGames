@@ -26,7 +26,11 @@
                 <button onclick="sendData()" class="button button1" id="sendButton">Find</button>
                 <button type="button" class="backButton" onclick="window.location.href='index.html'">
                         <span class="fa fa-arrow-left" id="closeX"></span>
-                </button>              
+                </button>
+                <section id="chat">
+
+
+                </section>
             </section>
             <div class="main" id="after_finding">
                 <img src="loader.gif" id="loader"><p id="loader_text">Vui lòng đợi chút, đang tìm đối thủ...</p>
@@ -65,12 +69,14 @@
                 <!-- readyButton -->
                 <button class="button button1" onclick="ready()">Ready</button>
                 <p id="notifyReady"></p>
-
+                <p id="username_vs"></p>
             </div>
         </div>
 
         <!-- Board is here -->
-        <div class="board"></div>
+        <div class="board">
+            <p id="username_vs2"></p>
+        </div>
 
 
         <div id="end_game">
