@@ -283,14 +283,14 @@ io.on('connection', function(socket) {
         console.log("Sending notification to the other user");
         socket.broadcast.to(socket.id).emit('beOuted',);
 
-        // Outting socket leave partner's room
-        socket.leave(allUser[socket.id].partner.id, () => {
-            console.log("Socket left room");
-        });
-        // Help the beOuted
-        allUser[socket.id].partner.leave(socket.id, () => {
-            console.log("Partner left room");
-        });
+        // // Outting socket leave partner's room
+        // socket.leave(allUser[socket.id].partner.id, () => {
+        //     console.log("Socket left room");
+        // });
+        // // Help the beOuted
+        // allUser[socket.id].partner.leave(socket.id, () => {
+        //     console.log("Partner left room");
+        // });
     });
 
 
