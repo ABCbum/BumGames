@@ -8,6 +8,8 @@ $('#after_finding').hide()
 $('#after_matched').hide()
 $('#end_game').hide()
 let player, yourTurn
+// Save the latest move to highlight
+let currX, currY
 
 // Check if can play that move
 let check = new Array(9)
@@ -70,9 +72,19 @@ function rematch()
  {
     if(check[y][x] == 1 && yourTurn)
     {
+        // 'Demark' the one being marked
+        $(`#square${currY}${currX}`).css('color', 'black')
+
+        // Save this choice
+        currX = x
+        currY = y
+
+        // Show my choice
         socket.emit('XOChoice', y, x, player)
         check[y][x] = 0
         $(`#square${y}${x}`).html(player)
+        $(`#square${y}${x}`).css('color', 'red')
+
         // Disable yourTurn
         yourTurn = 0
         $('#whose_turn').html('Their turn')
@@ -141,10 +153,20 @@ socket.on('connect', () => {
 
      socket.on('showChoice',(y, x, plyer) => {
         console.log('Received', y, x, plyer)
-        // Disable that move
+
+        // Change the previously marked back
+        currY && $(`#square${currY}${currX}`).css('color', 'black')
+
+        // Disable new move
         check[y][x] = 0
-        // Show enemy's choice
+
+        // Show new move
         $(`#square${y}${x}`).html(plyer)
+        $(`#square${y}${x}`).css('color', 'red')
+
+        // Save new move
+        currX = x
+        currY = y
      })
 
      socket.on('changeTurn', () => {
