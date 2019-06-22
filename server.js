@@ -255,7 +255,7 @@ io.on('connection', function(socket) {
         socket.emit('draw_match_RPS',);
     });
 
-    // Rematch?
+    // Rematch for RPS and RPSS?
     socket.on('rematch', () => {
         // Check partner's rematch val
         socket.rematch = 1;
@@ -264,6 +264,7 @@ io.on('connection', function(socket) {
         if(allUser[socket.id].partner.rematch) 
         {
             io.to(socket.id).emit('rematch', 1);
+            // Reset choice (only for RPSS and RPS)
             allUser[socket.id].choice = [];
             allUser[socket.id].partner.choice = [];
         }
@@ -387,4 +388,36 @@ io.on('connection', function(socket) {
             : socket.to(socket.id).emit('changeTurn') 
 
     })
+
+    // Rematch for XO?
+    socket.on('rematchXO', () => {
+        // Check partner's rematch val
+        socket.rematch = 1;
+        console.log('In allUser', allUser[socket.id].rematch);
+        // Rematch = yes
+        if(allUser[socket.id].partner.rematch) 
+        {
+            // Emit
+            io.to(socket.id).emit('rematch', 1);
+
+            // Reset rematch 
+            allUser[socket.id].rematch = 0
+            allUser[socket.id].partner.rematch = 0
+
+            // Reset board
+            for (let i = 0; i < 9 ; i++)
+            {
+                allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+            }
+        }
+        // Rematch = no
+        else 
+        {
+            // Not rematch yet
+            socket.emit('rematch', 0);
+            // Inform partner
+            allUser[socket.id].partner.emit('want_rematch',);
+        }
+    });
 });

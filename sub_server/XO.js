@@ -14,13 +14,13 @@ module.exports = exports = (board, y, x) => {
     let count = 1
 
     // Horizontal
-    while((board[y][x] == board[y][x-1]) && x >= 1)
+    while(x >= 1 && (board[y][x] == board[y][x-1]) )
     {
         count++ 
         x--
     }
     x = xRoot
-    while((board[y][x] == board[y][x-1]) && x < 8)
+    while(x < 8 && (board[y][x] == board[y][x+1]))
     {
         count++ 
         x++
@@ -35,13 +35,13 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // Vertical
-    while((board[y][x] == board[y-1][x]) && y >= 1)
+    while(y >= 1 && (board[y][x] == board[y-1][x]))
     {
         count++ 
         y--
     }
     y = yRoot
-    while((board[y][x] == board[y+1][x]) && y < 8)
+    while(y < 8 && (board[y][x] == board[y+1][x]))
     {
         count++ 
         y++
@@ -57,7 +57,7 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // Main Diagonal
-    while((board[y][x] == board[y-1][x-1]) && y >= 1 && x >= 1)
+    while(y >= 1 && x >= 1 && (board[y][x] == board[y-1][x-1]))
     {
         count++ 
         y--
@@ -65,7 +65,7 @@ module.exports = exports = (board, y, x) => {
     }
     y = yRoot
     x = xRoot
-    while((board[y][x] == board[y+1][x+1]) && y < 8 && x < 8)
+    while(y < 8 && x < 8 && (board[y][x] == board[y+1][x+1]))
     {
         count++ 
         y++
@@ -81,7 +81,7 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // The other diagonal
-    while((board[y][x] == board[y-1][x+1]) && y >= 1 && x < 8)
+    while(y >= 1 && x < 8 && (board[y][x] == board[y-1][x+1]))
     {
         count++ 
         y--
@@ -89,11 +89,11 @@ module.exports = exports = (board, y, x) => {
     }
     y = yRoot
     x = xRoot
-    while((board[y][x] == board[y+1][x-1]) && y < 8 && x >= 1)
+    while(y < 8 && x >= 1 && (board[y][x] == board[y+1][x-1]))
     {
         count++ 
-        y--
-        x++
+        y++
+        x--
     }
     if (count >= 5) return 1
     else {

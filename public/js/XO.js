@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('https://bumgames.herokuapp.com')
+const socket = io.connect('http://localhost:3000')
 
 // Setup 
 $('#game').hide()
@@ -52,6 +52,14 @@ function outRoom()
     socket.emit('outRoom');
     console.log("Redirecting...");
     window.location.href = "index.html";
+}
+
+// Rematch
+function rematch()
+{
+    console.log('Sending rematch request');
+    socket.emit('rematchXO');
+    $('#rematch').html('Waiting for response..');
 }
 
 /*
@@ -119,11 +127,11 @@ socket.on('connect', () => {
         // Decide who goes first
         if(data === 'X') {
             yourTurn = 1
-            $('#whose_turn').html('Your turn')
+            $('#whose_turn').html('Your turn, you are X')
         }
         else {
             yourTurn = 0
-            $('#whose_turn').html('Their turn')
+            $('#whose_turn').html('Their turn, you are O')
         }
     })
 
@@ -135,7 +143,7 @@ socket.on('connect', () => {
         console.log('Received', y, x, plyer)
         // Disable that move
         check[y][x] = 0
-        // Show enemy choice
+        // Show enemy's choice
         $(`#square${y}${x}`).html(plyer)
      })
 
@@ -151,20 +159,22 @@ socket.on('connect', () => {
         console.log('Match ended, winner is', winner)
         // If i win
         if(winner === player) {
-            $('#game').hide()
             $('#end_game').show()
+            // #cancel2 only shows when other outs in middle of the game
+            $('#cancel2').hide()
             $('#end_message').html('You win!!!')
         }
         else {
-            $('#game').hide()
             $('#end_game').show()
-            $('#end_message').html('You win!!!')
+            // #cancel2 only shows when other outs in middle of the game
+            $('#cancel2').hide()
+            $('#end_message').html('You lose!!!')
         }
      })
 
      // No one wins
      socket.on('draw', () => {
-        $('#game').hide()
+        // $('#game').hide()
         $('#end_game').show()
         $('#end_message').html('You win!!!')
      })
@@ -180,20 +190,31 @@ socket.on('connect', () => {
         {
             // Inform user
             $('#rematch').html('Request accepted');
-            
+
             // reset game
             $('#end_game').hide()
-
-            // Start game 
             for (var y = 0; y < 9; y++)
             {
                 for(var x = 0; x < 9; x++)
                 {
                     $(`#square${y}${x}`).html('')
+                    check[y][x] = 1
                 }
             }
-            
-            $('#game').show();
+            if(player === "X")
+            {
+                player = "O"
+                yourTurn = 0
+                $('#whose_turn').html('Their turn, you are O')
+            }
+            else 
+            {
+                player = "X"
+                yourTurn = 1
+                $('#whose_turn').html('Your turn, you are X')
+            }
+
+            // $('#game').show();
 
             // Change rematch html back
             $('#rematch').html('Rematch?');
@@ -210,17 +231,29 @@ socket.on('connect', () => {
     // When enemy outRoom
     socket.on('beOuted', () => {
         console.log('Im beOuted')
+
+        // Before ready is for outing when is not ready
+        $('#before_ready').hide()
         $('#game').hide()
+
+        // Ending
         $('#end_game').show()
         $('#end_message').html('Opponent gives up!!!')
+        $('#rematch').hide()
     })
 
     // When other disconnect
     socket.on('breakMatch', () => {
         console.log('Other has disconnected')
+
+        // Before ready is for outing when is not ready
+        $('#before_ready').hide()
         $('#game').hide()
+
+        // Ending
         $('#end_game').show()
         $('#end_message').html('Opponent has disconnected!!!')
+        $('#rematch').hide()
     })
 })
 

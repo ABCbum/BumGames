@@ -228,9 +228,18 @@ input[type=text], select {
     float: right;
     background-color: pink
 }
+
 .square {
     min-height: 5.5vw;
     width: 5.5vw;
     background-color: white;
+    font-weight: bold;
     border: 0.1vw solid black;
+}
+
+.main_XO {
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top : 10px;
 }

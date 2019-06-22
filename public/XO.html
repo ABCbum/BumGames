@@ -73,19 +73,22 @@
             </div>
         </div>
 
-        <!-- Board is here -->
-        <section id="game">
-            <h3 id="whose_turn" class="main"></h3>
-            <p class="main" id="username_vs2"></p>
-            <div class="board"></div>
-        </section>
-
-        <div id="end_game" class="main">
+        <div id="end_game" class="main_XO">
             <!-- End message -->
-            <p id="end_message"></p>
+            <h3 id="end_message" style="color: green"></h3>
             <!-- Rematch -->
             <button class="button button1" id="rematch" onclick="rematch()">Rematch?</button>
+            <!-- Back -->
+            <button id="cancel2" class="button button1" onclick="cancel()">Back</button>
         </div>
+
+        <!-- Board is here -->
+        <section id="game">
+            <h4 id="whose_turn" class="main"></h3>
+            <h4 class="main_XO" id="username_vs2"></h4>
+            <br>
+            <div class="board"></div>
+        </section>
 
         <br><br><br><br>
         
