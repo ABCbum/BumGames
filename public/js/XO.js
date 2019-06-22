@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('http://bumgames.herokuapp.com')
+const socket = io.connect('https://bumgames.herokuapp.com')
 
 // Setup 
 $('#game').hide()
