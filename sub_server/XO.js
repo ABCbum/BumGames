@@ -11,7 +11,7 @@ module.exports = exports = (board, y, x) => {
     // save the root 
     let yRoot = y
     let xRoot = x
-    let count = 0
+    let count = 1
 
     // Horizontal
     while((board[y][x] == board[y][x-1]) && x >= 1)
@@ -28,7 +28,7 @@ module.exports = exports = (board, y, x) => {
     if (count >= 5) return 1
     else {
         console.log('Not horizontal')
-        count = 0
+        count = 1
     }
 
     y = yRoot
@@ -50,7 +50,7 @@ module.exports = exports = (board, y, x) => {
     else 
     {
         console.log('Not vertical')
-        count = 0
+        count = 1
     }
 
     y = yRoot
@@ -73,7 +73,7 @@ module.exports = exports = (board, y, x) => {
     }
     if (count >= 5) return 1
     else {
-        count = 0
+        count = 1
         console.log('Not main diagonal')
     }
 
@@ -97,7 +97,7 @@ module.exports = exports = (board, y, x) => {
     }
     if (count >= 5) return 1
     else {
-        count = 0
+        count = 1
         console.log('Not diagonal')
     }
 
