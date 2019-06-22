@@ -50,10 +50,13 @@ module.exports = exports = (board, y, x) => {
         }
     }
     y = yRoot
-    while((board[y][x] == board[y+1][x]) && y < 9)
+    if(y != 8)
     {
-        count++ 
-        y++
+        while((board[y][x] == board[y+1][x]) && y < 9)
+        {
+            count++ 
+            y++
+        }
     }
     if (count >= 5) return 1
     else 
@@ -77,11 +80,14 @@ module.exports = exports = (board, y, x) => {
     }
     y = yRoot
     x = xRoot
-    while((board[y][x] == board[y+1][x+1]) && y < 9 && x < 9)
+    if(x != 8 && y != 8)
     {
-        count++ 
-        y++
-        x++
+        while((board[y][x] == board[y+1][x+1]) && y < 9 && x < 9)
+        {
+            count++ 
+            y++
+            x++
+        }
     }
     if (count >= 5) return 1
     else {
@@ -93,7 +99,7 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // The other diagonal
-    if(y != 0)
+    if(y != 0 && x != 8)
     {
         while((board[y][x] == board[y-1][x+1]) && y >= 0 && x < 9)
         {
@@ -104,7 +110,7 @@ module.exports = exports = (board, y, x) => {
     }
     y = yRoot
     x = xRoot
-    if(x != 0)
+    if(x != 0 && y != 8)
     {
         while((board[y][x] == board[y+1][x-1]) && y < 9 && x >= 0)
         {
