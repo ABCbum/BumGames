@@ -14,22 +14,16 @@ module.exports = exports = (board, y, x) => {
     let count = 0
 
     // Horizontal
-    if(x != 0)
+    while((board[y][x] == board[y][x-1]) && x >= 1)
     {
-        while((board[y][x] == board[y][x-1]) && x >= 1)
-        {
-            count++ 
-            x--
-        }
+        count++ 
+        x--
     }
     x = xRoot
-    if(x != 0)
+    while((board[y][x] == board[y][x-1]) && x < 8)
     {
-        while((board[y][x] == board[y][x-1]) && x < 8)
-        {
-            count++ 
-            x++
-        }
+        count++ 
+        x++
     }
     if (count >= 5) return 1
     else {
@@ -41,22 +35,16 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // Vertical
-    if (y != 0)
+    while((board[y][x] == board[y-1][x]) && y >= 1)
     {
-        while((board[y][x] == board[y-1][x]) && y >= 1)
-        {
-            count++ 
-            y--
-        }
+        count++ 
+        y--
     }
     y = yRoot
-    if(y != 8)
+    while((board[y][x] == board[y+1][x]) && y < 8)
     {
-        while((board[y][x] == board[y+1][x]) && y < 8)
-        {
-            count++ 
-            y++
-        }
+        count++ 
+        y++
     }
     if (count >= 5) return 1
     else 
@@ -69,25 +57,19 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // Main Diagonal
-    if(y != 0 && x != 0)
+    while((board[y][x] == board[y-1][x-1]) && y >= 1 && x >= 1)
     {
-        while((board[y][x] == board[y-1][x-1]) && y >= 1 && x >= 1)
-        {
-            count++ 
-            y--
-            x--
-        }
+        count++ 
+        y--
+        x--
     }
     y = yRoot
     x = xRoot
-    if(x != 8 && y != 8)
+    while((board[y][x] == board[y+1][x+1]) && y < 8 && x < 8)
     {
-        while((board[y][x] == board[y+1][x+1]) && y < 8 && x < 8)
-        {
-            count++ 
-            y++
-            x++
-        }
+        count++ 
+        y++
+        x++
     }
     if (count >= 5) return 1
     else {
@@ -99,25 +81,19 @@ module.exports = exports = (board, y, x) => {
     x = xRoot
 
     // The other diagonal
-    if(y != 0 && x != 8)
+    while((board[y][x] == board[y-1][x+1]) && y >= 1 && x < 8)
     {
-        while((board[y][x] == board[y-1][x+1]) && y >= 1 && x < 8)
-        {
-            count++ 
-            y--
-            x++
-        }
+        count++ 
+        y--
+        x++
     }
     y = yRoot
     x = xRoot
-    if(x != 0 && y != 8)
+    while((board[y][x] == board[y+1][x-1]) && y < 8 && x >= 1)
     {
-        while((board[y][x] == board[y+1][x-1]) && y < 8 && x >= 1)
-        {
-            count++ 
-            y--
-            x++
-        }
+        count++ 
+        y--
+        x++
     }
     if (count >= 5) return 1
     else {
