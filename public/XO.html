@@ -56,7 +56,7 @@
                             <h4 class="modal-title">Attention!!</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure you want to quit? You will lose!</p>
+                            <p>Are you sure you want to quit?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" onclick="outRoom()">Yes</button>
@@ -76,16 +76,18 @@
         <div id="end_game" class="main_XO">
             <!-- End message -->
             <h3 id="end_message" style="color: green"></h3>
-            <!-- Rematch -->
-            <button class="button button1" id="rematch" onclick="rematch()">Rematch?</button>
             <!-- Back -->
-            <button id="cancel2" class="button button1" onclick="cancel()">Back</button>
+            <button id="cancel2" class="button button1" onclick="location.reload()">Back</button>
         </div>
 
         <!-- Board is here -->
         <section id="game">
             <h4 id="whose_turn" class="main"></h3>
-            <h4 class="main_XO" id="username_vs2"></h4>
+            <div class="main_XO">
+                <h4 id="username_vs2"></h4>
+                <!-- Rematch -->
+                <button class="button button1 rematch_XO" id="rematch" onclick="rematch()">Rematch?</button>
+            </div>
             <br>
             <div class="board"></div>
         </section>

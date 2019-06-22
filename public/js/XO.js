@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('https://bumgames.herokuapp.com')
+const socket = io.connect('http://localhost:3000')
 
 // Setup 
 $('#game').hide()
@@ -239,7 +239,6 @@ socket.on('connect', () => {
         // Ending
         $('#end_game').show()
         $('#end_message').html('Opponent gives up!!!')
-        $('#rematch').hide()
     })
 
     // When other disconnect
@@ -253,7 +252,6 @@ socket.on('connect', () => {
         // Ending
         $('#end_game').show()
         $('#end_message').html('Opponent has disconnected!!!')
-        $('#rematch').hide()
     })
 })
 

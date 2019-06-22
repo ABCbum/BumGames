@@ -243,3 +243,9 @@ input[type=text], select {
     margin: 0 auto;
     margin-top : 10px;
 }
+.rematch_XO {
+    text-align: center;
+    margin: 0 auto;
+    margin-top : 8px;
+    margin-bottom: 8px;
+}
