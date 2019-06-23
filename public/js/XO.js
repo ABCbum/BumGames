@@ -8,8 +8,13 @@ $('#after_finding').hide()
 $('#after_matched').hide()
 $('#end_game').hide()
 let player, yourTurn
+
 // Save the latest move to highlight
 let currX, currY
+
+// Audio file
+let audio = new Audio('../XO_sound.mp3')
+let error = new Audio('../err.mp3')
 
 // Check if can play that move
 let check = new Array(9)
@@ -88,8 +93,11 @@ function rematch()
         // Disable yourTurn
         yourTurn = 0
         $('#whose_turn').html('Their turn')
+
+        // Play audio
+        audio.play()
     }
-    else console.log('Not your turn')
+    else error.play()
  }
 
 
@@ -163,6 +171,9 @@ socket.on('connect', () => {
         // Show new move
         $(`#square${y}${x}`).html(plyer)
         $(`#square${y}${x}`).css('color', 'red')
+
+        // Play audio
+        audio.play()
 
         // Save new move
         currX = x
