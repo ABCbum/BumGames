@@ -376,7 +376,7 @@ io.on('connection', function(socket) {
         allUser[socket.id].partner.board[y][x] = player
 
         // Show choice to both players
-        io.to(socket.id).emit('showChoice', y, x, player)
+        socket.broadcast.to(socket.id).emit('showChoice', y, x, player)
 
         // Check if someone wins, checkwin() returns 'X' || 'O' || 0
         let winner = checkwin(allUser[socket.id].partner.board, y, x)

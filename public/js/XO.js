@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('https://bumgames.herokuapp.com')
+const socket = io.connect('')
 
 // Setup 
 $('#game').hide()
@@ -192,24 +192,13 @@ socket.on('connect', () => {
         console.log('Match ended, winner is', winner)
         // If i win
         if(winner === player) {
-            $('#end_game').show()
-            // #cancel2 only shows when other outs in middle of the game
-            $('#cancel2').hide()
-            $('#end_message').html('You win!!!')
+            $('#whose_turn').html('You win!!!')
+            $('#whose_turn').css('color', 'green')
         }
         else {
-            $('#end_game').show()
-            // #cancel2 only shows when other outs in middle of the game
-            $('#cancel2').hide()
-            $('#end_message').html('You lose!!!')
+            $('#whose_turn').html('You win!!!')
+            $('#whose_turn').css('color', 'red')
         }
-     })
-
-     // No one wins
-     socket.on('draw', () => {
-        // $('#game').hide()
-        $('#end_game').show()
-        $('#end_message').html('You win!!!')
      })
 
     /*
