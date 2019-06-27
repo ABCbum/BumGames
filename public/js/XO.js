@@ -20,7 +20,7 @@ let error = new Audio('../err.mp3')
 let check = new Array(15)
 for (let i = 0; i < 15 ; i++)
 {
-    check[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+    check[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 }
 
 // Function to send user data to server (username)

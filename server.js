@@ -332,8 +332,8 @@ io.on('connection', function(socket) {
             allUser[socket.id].partner.board = new Array(15);
             for (let i = 0; i < 15 ; i++)
             {
-                allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
-                allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
             }
             console.log(allUser[socket.id].partner.board)
             // Join in one room 
@@ -407,8 +407,8 @@ io.on('connection', function(socket) {
             // Reset board
             for (let i = 0; i < 15 ; i++)
             {
-                allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
-                allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
             }
         }
         // Rematch = no
