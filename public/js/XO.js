@@ -17,8 +17,8 @@ let audio = new Audio('../XO_sound.mp3')
 let error = new Audio('../err.mp3')
 
 // Check if can play that move
-let check = new Array(9)
-for (let i = 0; i < 9 ; i++)
+let check = new Array(15)
+for (let i = 0; i < 15 ; i++)
 {
     check[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
 }

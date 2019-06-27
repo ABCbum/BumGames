@@ -328,9 +328,9 @@ io.on('connection', function(socket) {
             allUser[XOloneUser.id].partner = allUser[socket.id];
 
             // Initialize board inside object
-            allUser[socket.id].board = new Array(9);
-            allUser[socket.id].partner.board = new Array(9);
-            for (let i = 0; i < 9 ; i++)
+            allUser[socket.id].board = new Array(15);
+            allUser[socket.id].partner.board = new Array(15);
+            for (let i = 0; i < 15 ; i++)
             {
                 allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
                 allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -405,7 +405,7 @@ io.on('connection', function(socket) {
             allUser[socket.id].partner.rematch = 0
 
             // Reset board
-            for (let i = 0; i < 9 ; i++)
+            for (let i = 0; i < 15 ; i++)
             {
                 allUser[socket.id].partner.board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
                 allUser[socket.id].board[i] = [1, 1, 1, 1, 1, 1, 1, 1, 1]
