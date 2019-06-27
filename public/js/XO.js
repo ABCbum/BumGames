@@ -215,9 +215,9 @@ socket.on('connect', () => {
 
             // reset game
             $('#end_game').hide()
-            for (var y = 0; y < 9; y++)
+            for (var y = 0; y < 15; y++)
             {
-                for(var x = 0; x < 9; x++)
+                for(var x = 0; x < 15; x++)
                 {
                     $(`#square${y}${x}`).html('')
                     check[y][x] = 1
