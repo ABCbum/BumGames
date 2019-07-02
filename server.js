@@ -44,6 +44,7 @@ io.on('connection', function(socket) {
         // If is being matched then out match
         if(allUser[socket.id].partner) {
             console.log('This socket is matched breaking match');
+            socket.emit('uDisconnect');
             io.in(socket.id).emit('breakMatch');
         }
 

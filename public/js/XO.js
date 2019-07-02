@@ -1,5 +1,7 @@
 'use strict'
 
+import { SSL_OP_COOKIE_EXCHANGE } from "constants";
+
 const socket = io.connect('')
 
 // Setup 
@@ -99,6 +101,7 @@ function rematch()
     }
     else error.play()
  }
+
 
 
 socket.on('connect', () => {
@@ -275,5 +278,11 @@ socket.on('connect', () => {
         $('#end_game').show()
         $('#end_message').html('Opponent has disconnected!!!')
     })
+
+    socket.on('uDisconnect', () => {
+        window.location.href = "index.html";
+    })
 })
+
+
 
