@@ -1,7 +1,4 @@
 'use strict'
-
-import { SSL_OP_COOKIE_EXCHANGE } from "constants";
-
 const socket = io.connect('')
 
 // Setup 
