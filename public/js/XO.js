@@ -99,6 +99,15 @@ function rematch()
     else error.play()
  }
 
+// If you have connection ERR
+ socket.on('disconnect', (reason) => {
+    if (reason === 'io client disconnect') {
+        // Redirect to index 
+        console.log("Redirecting...");
+        window.location.href = "index.html";
+    }
+    // else the socket will automatically try to reconnect
+  });
 
 
 socket.on('connect', () => {
@@ -276,9 +285,6 @@ socket.on('connect', () => {
         $('#end_message').html('Opponent has disconnected!!!')
     })
 
-    socket.on('uDisconnect', () => {
-        window.location.href = "index.html";
-    })
 })
 
 
