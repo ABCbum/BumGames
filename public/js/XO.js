@@ -100,17 +100,12 @@ function rematch()
  }
 
 // If you have connection ERR
- socket.on('disconnect', (reason) => {
-     console.log('Disconnected')
-    if (reason === 'io client disconnect') {
-        // Redirect to index 
-        console.log("Redirecting...");
-        location.reload();
-    }
+socket.on('disconnect', (reason) => {
+    console.log('Disconnected')
     console.log('Reloading')
     location.reload();
-    // else the socket will automatically try to reconnect
-  });
+// else the socket will automatically try to reconnect
+});
 
 
 socket.on('connect', () => {

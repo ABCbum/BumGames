@@ -153,6 +153,14 @@ function ready()
     socket.emit('readyRPS', socket.id);
 }
 
+// If you have connection ERR
+socket.on('disconnect', (reason) => {
+    console.log('Disconnected')
+    console.log('Reloading')
+    location.reload();
+// else the socket will automatically try to reconnect
+});
+
 socket.on('connect', function(){
     console.log(socket.id);
 
