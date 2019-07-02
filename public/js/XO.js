@@ -101,11 +101,14 @@ function rematch()
 
 // If you have connection ERR
  socket.on('disconnect', (reason) => {
+     console.log('Disconnected')
     if (reason === 'io client disconnect') {
         // Redirect to index 
         console.log("Redirecting...");
-        window.location.href = "index.html";
+        location.reload();
     }
+    console.log('Reloading')
+    location.reload();
     // else the socket will automatically try to reconnect
   });
 
